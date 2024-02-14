@@ -8,6 +8,8 @@ export default class YeogiService {
             headless: false
         });
     
+        const hotelName = hotelData.hotelName;
+
         const url = 'https://www.yeogi.com/'; // URL 변수 정의 필요
         const page = await browser.newPage();
         await page.goto(url);
@@ -25,6 +27,8 @@ export default class YeogiService {
 
         await page.waitForSelector('.css-1yr88o5');
         await page.click('.css-1yr88o5');
+
+        await page.type('.css-1yr88o5 input', hotelName);
 
         
         
