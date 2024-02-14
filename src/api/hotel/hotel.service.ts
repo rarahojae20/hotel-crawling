@@ -8,12 +8,12 @@ export default class HotelService {
 
 		switch (hotelSite) {
 		case 'yeogi': 
-		ret = await new YeogiService().getPrice(hotelData);
+		ret = await new YeogiService().hotelSearch(hotelData);
 		break;
         
 
 	}
-    
+
     return ret;
 }
 
