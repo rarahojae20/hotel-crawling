@@ -28,7 +28,7 @@ export default class YeogiService {
         await page.waitForSelector('.css-i51owg');
         await page.click('.css-i51owg');
     
-        //두 번째 클릭하여 검색창 나타나기
+        // 두 번째 클릭하여 검색창 나타나기
         await page.waitForSelector('.css-1mpp0bp');
         await page.click('.css-1mpp0bp');
         
@@ -61,19 +61,46 @@ export default class YeogiService {
             }
         }, startDateDay, endDateDay);
         
-
-            
-        await page.evaluate(() => {
-            const dateButtons = Array.from(document.querySelectorAll('.css-16k3t8d button'));
-            for (const button of dateButtons) {
-                if ((button as HTMLButtonElement).querySelector('span').innerText === startDateDay) {
-                    (button as HTMLButtonElement).click();
-                    break;
-                }
-            }
+        await page.waitForSelector('.gc-box-button.css-1ke8c0e'); // 버튼이 나타날 때까지 대기
+        console.log("버튼 찾아짐");
         
+        // 버튼을 클릭합니다.
+        await page.evaluate(() => { // evaluate로 수정
+            const button = document.querySelector('.gc-box-button.css-1ke8c0e');
+            if (button instanceof HTMLElement) {
+                button.click();
+            } else {
+                console.error('버튼을 찾을 수 없음');
+            }
         });
         
+//document.querySelector('.gc-box-button.css-1ke8c0e').click():
+//page.click('.gc-box-button.css-1ke8c0e')
+//차이점 , 옆에박스는되고 여긴 이렇게되는 이유
+
+
+
+        // const button = await page.$('.gc-box-button.css-1ke8c0e');
+        // console.log("버튼 찾아짐")
+        // await button.hover();
+        // console.log("버튼 손댐")
+        // await button.click();
+        
+
+            
+        // await page.evaluate(() => {
+        //     const dateButtons = Array.from(document.querySelectorAll('.css-16k3t8d button'));
+        //     for (const button of dateButtons) {
+        //         if ((button as HTMLButtonElement).querySelector('span').innerText === startDateDay) {
+        //             (button as HTMLButtonElement).click();
+        //             break;
+        //         }
+        //     }
+        
+        // });
+        
+        
+        // await page.evaluate
         // await page.click('button.gc-box-button.css-1ke8c0e'); // 3박 적용 버튼 클릭
                 
 
@@ -81,7 +108,7 @@ export default class YeogiService {
 
 
 
-        // // await page.click('css-z5h4lj');
+        // await page.click('css-z5h4lj');
         
         
         // await page.waitForNavigation();
