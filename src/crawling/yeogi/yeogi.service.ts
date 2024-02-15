@@ -8,6 +8,17 @@ export default class YeogiService {
             headless: false
         });
     
+        const startDate = hotelData.hotelStartDate;
+        const startDateParts = startDate.split('.'); // 날짜를 분할
+        const startDateDay = startDateParts[1]; // 날짜 부분만 가져오기
+        console.log(startDateDay)
+
+
+        const endDate = hotelData.hotelEndDate;
+        const endDateParts = endDate.split('.'); // 날짜를 분할
+        const endDateDay = endDateParts[1]; // 날짜 부분만 가져오기
+        console.log(endDateDay)
+
         const hotelName = hotelData.hotelName;
 
         const url = 'https://www.yeogi.com/'; // URL 변수 정의 필요
@@ -17,7 +28,7 @@ export default class YeogiService {
         await page.waitForSelector('.css-i51owg');
         await page.click('.css-i51owg');
     
-        // 두 번째 클릭하여 검색창 나타나기
+        //두 번째 클릭하여 검색창 나타나기
         await page.waitForSelector('.css-1mpp0bp');
         await page.click('.css-1mpp0bp');
         
@@ -29,7 +40,48 @@ export default class YeogiService {
         await page.click('.css-1yr88o5');
 
         await page.type('.css-1yr88o5 input', hotelName);
+        await page.keyboard.press('Enter');
 
+        await page.waitForSelector('.css-16k3t8d'); // 캘린더가 로드될 때까지 대기
+        
+        await page.evaluate((startDateDay, endDateDay) => {
+            const dateButtons = Array.from(document.querySelectorAll('.css-16k3t8d button'));
+            for (const button of dateButtons) {
+                if ((button as HTMLButtonElement).querySelector('span').innerText === startDateDay) {
+                    (button as HTMLButtonElement).click();
+                    break;
+                }
+            }
+        
+            for (const button of dateButtons) {
+                if ((button as HTMLButtonElement).querySelector('span').innerText === endDateDay) {
+                    (button as HTMLButtonElement).click();
+                    break;
+                }
+            }
+        }, startDateDay, endDateDay);
+        
+
+            
+        await page.evaluate(() => {
+            const dateButtons = Array.from(document.querySelectorAll('.css-16k3t8d button'));
+            for (const button of dateButtons) {
+                if ((button as HTMLButtonElement).querySelector('span').innerText === startDateDay) {
+                    (button as HTMLButtonElement).click();
+                    break;
+                }
+            }
+        
+        });
+        
+        // await page.click('button.gc-box-button.css-1ke8c0e'); // 3박 적용 버튼 클릭
+                
+
+        
+
+
+
+        // // await page.click('css-z5h4lj');
         
         
         // await page.waitForNavigation();
