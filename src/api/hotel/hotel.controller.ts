@@ -20,6 +20,7 @@ export default class HotelController {
 
         res.status(httpStatus.OK).json(result);
 
+        return result;
 
 
     }
