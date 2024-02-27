@@ -29,7 +29,7 @@ export default class HotelController {
             console.error("에러 발생:", error);
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: "서버 에러" });
         }
-
+        console.log(JSON.stringify(result))
         return result;
     }
 }

@@ -23,7 +23,8 @@ export default class AgodaService {
         await page.waitForSelector('[data-selenium="occupancyPicker"]');
         await page.click('[data-selenium="searchButton"]');
 
-        await this.getHotelInfo(page);
+        const hotelInfo = await this.getHotelInfo(page);
+        return hotelInfo;
     }
 
     async clickDateButton(page: Page, date: string) {
@@ -58,8 +59,6 @@ export default class AgodaService {
     
             const hotelName = await page.$eval('.PropertyCardItem [data-selenium="hotel-name"]', element => element.textContent.trim());
             const price = await page.$eval('.PropertyCardItem [data-selenium="display-price"]', element => element.textContent.trim());
-            console.log(hotelName)
-            console.log(price)
             return { hotelName, price };
         } catch (error) {
             console.error("호텔 정보를 찾을 수 없습니다:", error);

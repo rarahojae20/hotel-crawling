@@ -6,10 +6,10 @@ export default class YeogiService {
         const page = await browser.newPage();        
 
         const YearMonth = `${hotelData.hotelStartDate.slice(0, 4)}년 ${parseInt(hotelData.hotelStartDate.slice(5, 7))}월`;
-        const startDateDay = parseInt(hotelData.hotelStartDate.split('.')[2]);
-        const endDateDay = parseInt(hotelData.hotelEndDate.split('.')[2]);
+        const startDateDay = parseInt(hotelData.hotelStartDate.split('-')[2]);
+        const endDateDay = parseInt(hotelData.hotelEndDate.split('-')[2]);
         const hotelName = hotelData.hotelName;
-
+        
         await page.goto('https://www.yeogi.com/');
         await page.waitForSelector('.css-8axmcj');
         await page.click('.css-8axmcj');
@@ -31,8 +31,7 @@ export default class YeogiService {
         await page.waitForSelector('.css-1qrcwa');
         
         const hotelInfo = await this.getHotelInfo(page);
-        console.log(hotelInfo);
-        
+        return hotelInfo;
     }
 
     async getHotelInfo(page: Page) {
