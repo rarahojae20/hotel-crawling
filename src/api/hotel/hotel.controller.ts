@@ -25,6 +25,7 @@ export default class HotelController {
             });
     
             res.status(httpStatus.OK).json(result); 
+            
         } catch (error) {
             console.error("에러 발생:", error);
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: "서버 에러" });

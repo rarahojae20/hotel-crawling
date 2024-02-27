@@ -5,9 +5,9 @@ export default class YeogiService {
         const browser = await chromium.launch({ headless: false });
         const page = await browser.newPage();        
 
-        const YearMonth = `${hotelData.hotelStartDate.slice(0, 4)}년 ${parseInt(hotelData.hotelStartDate.slice(5, 7))}월`;
-        const startDateDay = parseInt(hotelData.hotelStartDate.split('-')[2]);
-        const endDateDay = parseInt(hotelData.hotelEndDate.split('-')[2]);
+        const YearMonth = `${hotelData.startdate.slice(0, 4)}년 ${parseInt(hotelData.startdate.slice(5, 7))}월`;
+        const startDateDay = parseInt(hotelData.startdate.split('-')[2]);
+        const endDateDay = parseInt(hotelData.enddate.split('-')[2]);
         const hotelName = hotelData.hotelName;
         
         await page.goto('https://www.yeogi.com/');

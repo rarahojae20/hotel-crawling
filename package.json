@@ -62,7 +62,7 @@
     "promise-based-task": "^2.2.0",
     "puppeteer": "^19.7.2",
     "request-ip": "^3.3.0",
-    "sequelize": "^6.32.1",
+    "sequelize": "^6.37.1",
     "session": "^0.1.0",
     "tracer": "^1.1.6",
     "tslib": "^2.6.0",

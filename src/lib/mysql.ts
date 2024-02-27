@@ -3,6 +3,7 @@
 import { Sequelize } from 'sequelize';
 import { env } from '../env';
 import logger from './logger';
+import HotelData from 'src/models/hotel.model';
 // import { Memo } from '../models/memos.model';
 // import { User } from '../models/users.model';
 // import { Comment } from '../models/comments.model';
@@ -66,23 +67,17 @@ const sequalizeCore = new Sequelize(env.mysql.core.schema, null, null, {
   },
 });
 
-// export function initModels() {
-//   Memo.initModel(sequelize);
-//   User.initModel(sequelize);
-//   Comment.initModel(sequelize);
+export function initModels() {
+  HotelData.initModel(sequelize);
 
 //   // Set up associations
-//   Comment.belongsTo(Memo, { foreignKey: 'memoId', as: 'memo' });
-//   Comment.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-//   Memo.hasMany(Comment, { foreignKey: 'memoId', as: 'comments' });
-//   Memo.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-// }
+}
 
 export { sequelize as mysql, sequalizeCore as mysqlCore };
 
 export function connect() {
   return new Promise(async (resolve, reject) => {
-    // initModels();
+    initModels();
     try {
       await sequelize.authenticate();
       await sequalizeCore.authenticate();
