@@ -33,7 +33,8 @@ export default class HotelService {
         return searchedHotelData;
     }
 
-    private create = async (hotelData: any, searchedHotelData: any, hotelSite: string) => {
+
+    public create = async (hotelData: any, searchedHotelData: any, hotelSite: string) => {
         // HotelRepository를 사용하여 데이터 저장
         try {
             await new HotelRepository().hotelCreate(hotelData, searchedHotelData, hotelSite);
@@ -42,4 +43,23 @@ export default class HotelService {
             throw new Error('Failed to save data');
         }
     };
+
+    public async getLatestHotelInfo(site: string, hotelName: string) {
+        try {
+            return await new HotelRepository().getLatestHotelInfo(site, hotelName);
+        } catch (error) {
+            console.error('호텔 정보 가져오기 중 에러 발생:', error);
+            throw new Error('호텔 정보를 가져오는 데 실패습니다.');
+        }
+    }
 }
+
+    // public async getLatestPriceBySiteAndHotelName(hotelSite: string, hotelName: string): Promise<number | null> {
+    //     try {
+    //         return await new HotelRepository().getLatestPriceBySiteAndHotelName(hotelSite, hotelName);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         throw new Error('Failed to fetch data');
+    //     }
+    // }
+    

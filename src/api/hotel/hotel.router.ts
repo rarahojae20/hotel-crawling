@@ -6,4 +6,5 @@ import HotelController from './hotel.controller';
 export const path = '/hotel';
 export const router = Router();
 
-router.get('/:hotelSite', new HotelController().getPrice);
+router.get('/getLatestHotelInfo/:hotelSite', new HotelController().getLatestHotelInfo);
+router.get('/:hotelSite', new HotelController().getPrice); //순서떔에 오류 생김

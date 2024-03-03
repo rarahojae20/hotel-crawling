@@ -3,7 +3,7 @@ import HotelData from "src/models/hotel.model";
 export default class HotelRepository {
   
     public async hotelCreate(hotelData: any, searchedHotelData: any, hotelSite: string) {
-        const hotelName = searchedHotelData.hotelName; // 호텔 이름
+        const hotelName = hotelData.hotelName; // 호텔 이름
         const startDate = hotelData.startdate; // 시작일
         const endDate = hotelData.enddate; // 종료일
         const site = hotelSite;
@@ -21,6 +21,36 @@ export default class HotelRepository {
 
         return await HotelData.create(hotelInfo);
     }
+
+    // public async getLatestPriceBySiteAndHotelName(hotelSite: string, hotelName: string): Promise<number | null> {
+    //     const latestPrice = await HotelData.findOne({
+    //         where: {
+    //             site: hotelSite,
+    //             hotelName: hotelName,
+    //         },
+    //         order: [['searchTime', 'DESC']], // 최신 데이터를 가져오기 위해 검색 시간을 기준으로 내림차순으로 정렬
+    //         attributes: ['price'], // price 필드만 가져오도록 지정
+    //     });
+
+    //     if (latestPrice) {
+    //         return latestPrice.price;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+    public async getLatestHotelInfo(site: string, hotelName: string) {
+        const latestHotelInfo = await HotelData.findOne({
+            where: {
+                site: site,
+                hotelName: hotelName,
+            },
+            order: [['searchTime', 'DESC']], // 최신 데이터를 가져오기 위해 검색 시간을 기준으로 내림차순으로 정렬
+        });
+
+        return latestHotelInfo;
+    }
+
+    
 }
 
 
