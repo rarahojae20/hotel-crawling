@@ -19,7 +19,7 @@ export default class HotelController {
     
             
             const responses = await Promise.all(requests);
-    
+
             hotelSites.forEach((site, index) => {
                 result[site] = responses[index];
             });

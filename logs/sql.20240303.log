@@ -1,0 +1,6 @@
+2024-03-03T16:51:43.615+0900 SQL dcb118d0-d932-11ee-9f2f-8d1d481a7203 [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);
+2024-03-03T16:51:44.560+0900 SQL dcb118d0-d932-11ee-9f2f-8d1d481a7203 [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);
+2024-03-03T16:57:05.369+0900 SQL 9d352790-d933-11ee-a52b-47813b8d2391 [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);
+2024-03-03T16:57:07.189+0900 SQL 9d352790-d933-11ee-a52b-47813b8d2391 [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);
+2024-03-03T17:00:45.343+0900 SQL 1fa64060-d934-11ee-a5e7-f354c398828f [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);
+2024-03-03T17:00:45.752+0900 SQL 1fa64060-d934-11ee-a5e7-f354c398828f [] Executing (default): INSERT INTO `SerachedHotelData` (`id`,`site`,`hotelName`,`startDate`,`endDate`,`price`,`searchTime`) VALUES (DEFAULT,?,?,?,?,?,?);

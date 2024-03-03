@@ -1,7 +1,8 @@
 import YeogiService from '../../crawling/yeogi/yeogi.service';
 import YanoljaService from '../../crawling/yanolja/yanolja.service';
 import AgodaService from '../..//crawling/agoda/agoda.service';
-// import HotelRepository from './hotel.repository';
+import HotelRepository from './hotel.repository';
+
 
 // 각 호텔 사이트에 대한 서비스 객체를 나타내는 인터페이스
 interface HotelSiteService {
@@ -26,14 +27,19 @@ export default class HotelService {
             throw new Error(`Unsupported hotel site: ${hotelSite}`);
         }
 
-        const searchedHotelData = await service.hotelSearch(hotelData); //이게문제됨브라우저여러창
-        // await this.create(hotelData,searchedHotelData,hotelSite )
+        const searchedHotelData = await service.hotelSearch(hotelData);
+        await this.create(hotelData, searchedHotelData, hotelSite); // HotelRepository로 데이터 저장
 
         return searchedHotelData;
     }
 
-    // public create = async (hotelData,searchedHotelData,hotelSite) => {
-    //     const result = await new HotelRepository().create(hotelData,searchedHotelData,hotelSite);
-    //     return result;
-    //   };
+    private create = async (hotelData: any, searchedHotelData: any, hotelSite: string) => {
+        // HotelRepository를 사용하여 데이터 저장
+        try {
+            await new HotelRepository().hotelCreate(hotelData, searchedHotelData, hotelSite);
+        } catch (error) {
+            console.error('Error saving data:', error);
+            throw new Error('Failed to save data');
+        }
+    };
 }

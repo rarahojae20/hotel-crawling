@@ -7,7 +7,7 @@ export interface HotelAttributes {
     hotelName: string;
     startDate: Date;
     endDate: Date;
-    price: string;
+    price: number;
     searchTime: Date;
 }
 
@@ -17,13 +17,13 @@ export type HotelDataOptionalAttributes = 'id' | 'site' | 'hotelName' | 'startDa
 export type startDataCreationAttributes = Optional<HotelAttributes, HotelDataOptionalAttributes>;
 
 export class HotelData extends Model<HotelAttributes, startDataCreationAttributes> implements HotelAttributes {
-    public id!: number;
-    public site!: string;
-    public hotelName!: string;
-    public startDate!: Date;
-    public endDate!: Date;
-    public price!: string;
-    public searchTime!: Date;
+    public id!: number; //autoinrease
+    public site!: string; //req.param
+    public hotelName!: string;//req.body.hotelName
+    public startDate!: Date;//req.body.startDate
+    public endDate!: Date;//req.body.endDate
+    public price!: number;//response.result.price
+    public searchTime!: Date;//?
 
     public static initModel(sequelize: Sequelize): typeof HotelData {
         return HotelData.init(
@@ -50,7 +50,7 @@ export class HotelData extends Model<HotelAttributes, startDataCreationAttribute
                     allowNull: false,
                 },
                 price: {
-                    type: DataTypes.STRING,
+                    type: DataTypes.NUMBER,
                     allowNull: false,
                 },
                 searchTime: {
