@@ -28,19 +28,9 @@
                 
                 const hotelSite = "yeogi,agoda"; // 호텔 사이트 정보
 
-                const requestBody = {
-                    hotelName: hotelName,
-                    startDate: startDate,
-                    endDate: endDate
-                };
-
                 try {
-                    const response = await fetch(`http://localhost:3000/v1/hotel/${hotelSite}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(requestBody)
+                    const response = await fetch(`http://localhost:3000/v1/hotel/${hotelSite}?hotelName=${hotelName}&startdate=${startDate}&enddate=${endDate}`, {
+                        method: 'GET'
                     });
 
                     const data = await response.json();

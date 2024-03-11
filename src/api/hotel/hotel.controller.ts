@@ -7,8 +7,12 @@ import HotelService from './hotel.service';
 export default class HotelController {
 
     public getPrice = async (req: Request, res: Response) => {
-        const hotelData = req.body;
         const hotelSites = req.params.hotelSite.toLowerCase().split(','); // 여러 호텔 사이트 받기
+        
+        const hotelName = req.query.hotelName as string; // 호텔 이름 가져오기
+        const startDate = req.query.startDate as string; // 시작 날짜 가져오기
+        const endDate = req.query.endDate as string; // 종료 날짜 가져오기
+        const hotelData = {hotelName, startDate, endDate}
         const result: Record<string, any> = {}; // 객체로 변경
     
         try {
