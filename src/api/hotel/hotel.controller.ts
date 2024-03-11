@@ -10,11 +10,11 @@ export default class HotelController {
         const hotelSites = req.params.hotelSite.toLowerCase().split(','); // 여러 호텔 사이트 받기
         
         const hotelName = req.query.hotelName as string; // 호텔 이름 가져오기
-        const startDate = req.query.startDate as string; // 시작 날짜 가져오기
-        const endDate = req.query.endDate as string; // 종료 날짜 가져오기
-        const hotelData = {hotelName, startDate, endDate}
+        const startdate = req.query.startDate as string; // 시작 날짜 가져오기
+        const enddate = req.query.endDate as string; // 종료 날짜 가져오기
+        const hotelData = {hotelName, startdate, enddate}
         const result: Record<string, any> = {}; // 객체로 변경
-    
+        console.log (hotelData);
         try {
             const requests = hotelSites.map(async (site: string) => {
                 const hotelPrice = await new HotelService().getPrice(hotelData, site);

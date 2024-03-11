@@ -5,7 +5,6 @@ export default class YeogiService {
         const browser = await chromium.launch({ headless: false });
         const page = await browser.newPage();        
 
-        console.log(hotelData.startdate)
         const YearMonth = `${hotelData.startdate.slice(0, 4)}년 ${parseInt(hotelData.startdate.slice(5, 7))}월`;
         const startDateDay = parseInt(hotelData.startdate.split('-')[2]);
         const endDateDay = parseInt(hotelData.enddate.split('-')[2]);
