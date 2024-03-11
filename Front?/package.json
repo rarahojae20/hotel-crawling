@@ -1,0 +1,12 @@
+{
+  "name": "frontend-project",
+  "version": "1.0.0",
+  "description": "Frontend project description",
+  "main": "index.js",
+  "scripts": {
+    "start": "python3 -m http.server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

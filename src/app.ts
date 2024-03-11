@@ -19,6 +19,9 @@ import tracer from 'cls-rtracer';
 import * as Api from './app.router';
 
 export const app = express();
+////////////////////
+app.use(cors()); // 모든 출처에서의 요청을 허용합니다. 필요에 따라 설정을 조정할 수 있습니다.
+///////////////
 // export const supportLanguages = new Google().getSupportedLanguages();
 function getOrigins() {
     const origins = env.app.cors.origins?.split(',') || [];
