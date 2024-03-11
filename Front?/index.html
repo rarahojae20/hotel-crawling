@@ -11,9 +11,9 @@
         <label for="hotelName">Hotel Name:</label>
         <input type="text" id="hotelName" name="hotelName" placeholder="Enter hotel name...">
         <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate">
+        <input type="text" id="startDate" name="startDate" placeholder="Enter start date...">
         <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate">
+        <input type="text" id="endDate" name="endDate" placeholder="Enter end date...">
         <button id="searchButton">Search</button>
     </div>
     <div id="hotelInfo" class="hotel-info"></div> <!-- 호텔 정보를 표시할 영역 -->
@@ -25,11 +25,11 @@
                 const hotelName = document.getElementById("hotelName").value;
                 const startDate = document.getElementById("startDate").value;
                 const endDate = document.getElementById("endDate").value;
-                
+
                 const hotelSite = "yeogi,agoda"; // 호텔 사이트 정보
 
                 try {
-                    const response = await fetch(`http://localhost:3000/v1/hotel/${hotelSite}?hotelName=${hotelName}&startdate=${startDate}&enddate=${endDate}`, {
+                    const response = await fetch(`http://localhost:3000/v1/hotel/${hotelSite}?hotelName=${hotelName}&startDate=${startDate}&endDate=${endDate}`, {
                         method: 'GET'
                     });
 
