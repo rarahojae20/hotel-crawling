@@ -21,6 +21,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const searchButton = document.getElementById("searchButton");
+            const hotelInfoDiv = document.getElementById("hotelInfo");
+
             searchButton.addEventListener("click", async function() {
                 const hotelName = document.getElementById("hotelName").value;
                 const startDate = document.getElementById("startDate").value;
@@ -35,7 +37,23 @@
 
                     const data = await response.json();
                     console.log(data); // 백엔드에서 받은 데이터 출력
-                    // 받은 데이터를 화면에 표시하거나 필요한 작업 수행
+
+                    // 호텔 정보 표시
+                    hotelInfoDiv.innerHTML = `
+                        <h2>Prices</h2>
+                        <ul>
+                            <li>Yeogi: ${data.prices.yeogi.price}</li>
+                            <li>Agoda: ${data.prices.agoda.price}</li>
+                        </ul>
+                        <h2>Latest Hotel Info</h2>
+                        <ul>
+                            <li>Yeogi: ${data.latestHotelInfo.yeogi.price}</li>
+                            <li>Agoda: ${data.latestHotelInfo.agoda.price}</li>
+                        </ul>
+                        <h2>Cheaper Hotel</h2>
+                        <p>Site: ${data.latestHotelInfo.cheaperHotel.site}, Price: ${data.latestHotelInfo.cheaperHotel.price}</p>
+                    `;
+
                 } catch (error) {
                     console.error('데이터 가져오기 실패:', error);
                     // 오류 처리
