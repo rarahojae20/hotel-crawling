@@ -2,7 +2,7 @@ import { chromium, Page } from 'playwright';
 
 export default class YeogiService {
     async hotelSearch(hotelData: any) {
-        const browser = await chromium.launch({ headless: false });
+        const browser = await chromium.launch({ headless: true });
         const page = await browser.newPage();        
 
         const YearMonth = `${hotelData.startdate.slice(0, 4)}년 ${parseInt(hotelData.startdate.slice(5, 7))}월`;
