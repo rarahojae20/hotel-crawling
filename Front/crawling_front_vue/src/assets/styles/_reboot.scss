@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+  vertical-align: top;
+  li{
+    list-style: none;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+
+html, body, #app, #crawlingApp {
+  height: 100%;
+  width: 100%;
+  line-height: 1.15; // 3
+  -webkit-text-size-adjust: 100%; // 4
+  -webkit-tap-highlight-color: rgba(#000, 0); // 5
+  color: #333333;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input[type=text],input[type=number],input[type=password] {
+    user-select: auto;
+  }
+}
+
+*, :after, :before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  body {
+    margin: 0;
+    text-align: left;
+    //overflow: hidden;
+
+    div {
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    p {
+      line-height: normal;
+      margin: 0;
+    }
+
+    img {
+      image-rendering: -moz-crisp-edges; /* Firefox */
+      image-rendering: -o-crisp-edges; /* Opera */
+      image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming) */
+      image-rendering: crisp-edges;
+      -ms-interpolation-mode: nearest-neighbor;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+    }
+
+    input[type='text'], input[type='number'], input[type='password'] {
+      line-height: normal;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &:read-only {
+        //cursor: not-allowed;
+      }
+    }
+
+    button {
+      cursor: pointer;
+      line-height: normal;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    textarea {
+      resize: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .el-date-table {
+    th {
+      text-align: center !important;
+    }
+  }
+
+  .el-pagination {
+    margin-top: 12px;
+    text-align: center;
+  }
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}

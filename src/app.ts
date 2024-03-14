@@ -59,7 +59,7 @@ app.listen(env.app.port, async function appMain() {
         console: false,
     });
 
-    await mysql.connect();
+//    await mysql.connect();
     // 상용모드나 개발모드인 경우 멀티 프로세스로 동작할때 스케줄러를 실행한다.
     // if (env.mode.value === 'prod' || env.mode.value === 'dev') {
     //     if (await isMasterProcess()) await new Scheduler().startJob();

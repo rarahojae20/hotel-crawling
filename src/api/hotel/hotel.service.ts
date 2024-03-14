@@ -28,7 +28,7 @@ export default class HotelService {
         }
 
         const searchedHotelData = await service.hotelSearch(hotelData);
-        await this.create(hotelData, searchedHotelData, hotelSite); // HotelRepository로 데이터 저장
+//        await this.create(hotelData, searchedHotelData, hotelSite); // HotelRepository로 데이터 저장
 
         return searchedHotelData;
     }
@@ -62,4 +62,3 @@ export default class HotelService {
     //         throw new Error('Failed to fetch data');
     //     }
     // }
-    

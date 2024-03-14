@@ -1,0 +1,15 @@
+#homeView{
+  .el-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    //padding-top: 100px;
+    //min-height: 1000px;
+  }
+  #homeMain{
+    height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+}

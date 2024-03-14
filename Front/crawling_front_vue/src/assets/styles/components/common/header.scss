@@ -1,0 +1,128 @@
+#header.scrolled {
+  background-color: #f0f0f2;
+}
+#header{
+  position: fixed;
+  background-color: transparent;
+  //background-color: red;
+  opacity: 1;
+  width: 100%;
+  height: 100px;
+  padding: 0 50px;
+  z-index: 100;
+  .container{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .bxh-logo{
+      img{
+        height: 47px;
+        cursor: pointer;
+      }
+    }
+    .header-menu{
+      .el-menu--horizontal > .el-submenu .el-submenu__title:hover {
+        background-color: transparent;
+      }
+      .el-menu--horizontal > .el-submenu.is-active .el-submenu__title{
+        border-bottom: none;
+      }
+      .el-menu.el-menu--horizontal{
+        background-color: transparent;
+        border: none;
+      }
+      .el-menu-item.is-active{
+        background-color: transparent;
+        border: none;
+        color:#000;
+      }
+      .el-menu-item:hover{
+        background-color: transparent;
+      }
+    }
+    .header_icon{
+      cursor: pointer;
+      font-size: 24px;
+    }
+  }
+  @media(min-width: 830px){
+    .header_icon{
+      display: none;
+    }
+  }
+  @media(max-width: 830px){
+    position: fixed;
+    background-color: transparent;
+    //background-color: red;
+    opacity: 1;
+    width: 100%;
+    height: 64px;
+    padding: 0 30px;
+    .header_icon{
+      .mobile_m{
+        opacity: 1;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        .nav,.nav2{
+          display: flex;
+          transform: translateX(0%) translateZ(0px);
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background-color: #fff;
+          padding: 124px 30px 124px 60px;
+          flex-direction: column;
+          overflow: hidden;
+          z-index: 1;
+          i{
+            position: absolute;
+            top: 21px;
+            right: 30px;
+            z-index: 1;
+          }
+          ul{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 292px;
+            li{
+              line-height: 1.3em;
+              font-weight: 700;
+              font-size: 28px;
+            }
+          }
+        }
+      }
+    }
+
+    .container{
+      width: 100%;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .bxh-logo{
+        img{
+          height: 34px;
+          cursor: pointer;
+        }
+      }
+      .header-menu {
+        display: none;
+      }
+    }
+  }
+}
