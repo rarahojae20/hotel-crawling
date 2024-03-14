@@ -13,8 +13,8 @@ export default class AgodaService {
         await page.click('.IconBox__child')
         await page.type('.IconBox__child', hotelName);
         
-        await page.waitForSelector('[data-selenium="suggestion-text-highlight"]');
-        await page.click('[data-selenium="suggestion-text-highlight"]');
+        await page.waitForSelector('[data-selenium="suggestion-text"]');
+        await page.click('[data-selenium="suggestion-text"]');
         
         await page.waitForSelector('[data-selenium="rangePickerCheckIn"]');
         await this.clickDateButton(page, startdate);

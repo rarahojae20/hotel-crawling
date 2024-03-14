@@ -16,20 +16,14 @@ export default class HotelController {
         const result: Record<string, any> = {}; // 객체로 변경
         console.log (hotelData);
         try {
-            const requests = hotelSites.map(async (site: string) => {
-                const hotelPrice = await new HotelService().getPrice(hotelData, site);
-                return hotelPrice;
-            });
-    
-            const responses = await Promise.all(requests);
+            const pricePromise = this.getPricePromise(hotelData, hotelSites); // 가격 정보를 가져오는 Promise
+            const latestHotelPromise = this.getLatestHotelPromise(hotelData, hotelSites); // 최근 호텔 정보를 가져오는 Promise
+            
+            // 두 개의 Promise를 동시에 실행하여 결과를 기다림
+            const [prices, latestHotelInfo] = await Promise.all([pricePromise, latestHotelPromise]);
 
-            hotelSites.forEach((site, index) => {
-                result[site] = responses[index];
-            });
-    
-            console.log(JSON.stringify(result));
-
-            res.status(httpStatus.OK).json(result); 
+            // 응답으로 반환
+            res.status(httpStatus.OK).json({ prices, latestHotelInfo }); 
             
         } catch (error) {
             console.error("에러 발생:", error);
@@ -37,31 +31,46 @@ export default class HotelController {
         }
     }
 
-    public getLatestHotelInfo = async (req: Request, res: Response) => {
-        const hotelName = req.body.hotelName as string; // 호텔 이름 가져오기
-        const hotelSites = req.params.hotelSite.toLowerCase().split(','); // 여러 호텔 사이트 받기
+    private getPricePromise = async (hotelData: any, hotelSites: string[]) => {
+        const result: Record<string, any> = {}; // 객체로 변경
 
-        try {
-            // 각 사이트에서 가장 최근에 검색한 호텔 정보 가져오기
-            const hotelInfoPromises = hotelSites.map(async (site: string) => {
-                const hotelInfo = await new HotelService().getLatestHotelInfo(site, hotelName);
-                return { [site]: hotelInfo };
-            });
-    
-            // 모든 호텔 정보를 한꺼번에 가져오기
-            const hotelInfos = await Promise.all(hotelInfoPromises);
-    
-            // 가장 저렴한 호텔 정보 찾기
-            const cheaperHotel = this.getCheaperHotel(hotelInfos);
-    
-            // 응답으로 반환
-            res.status(httpStatus.OK).json({ hotelInfos, cheaperHotel });
-        } catch (error) {
-            console.error('호텔 정보 조회 중 에러 발생:', error);
-            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: '서버에러' });
-        }
+        const requests = hotelSites.map(async (site: string) => {
+            const hotelPrice = await new HotelService().getPrice(hotelData, site);
+            return hotelPrice;
+        });
+        const responses = await Promise.all(requests);
+
+        hotelSites.forEach((site, index) => {
+            result[site] = responses[index];
+        });
+
+        return result;
     }
 
+    private getLatestHotelPromise = async (hotelData: any, hotelSites: string[]) => {
+        const hotelName = hotelData.hotelName;
+        const result: Record<string, any> = {}; // 객체로 변경
+    
+        const hotelInfoPromises = hotelSites.map(async (site: string) => {
+            const hotelInfo = await new HotelService().getLatestHotelInfo(site, hotelName);
+            return { [site]: hotelInfo };
+        });
+        const hotelInfos = await Promise.all(hotelInfoPromises);
+    
+        hotelInfos.forEach((info) => {
+            const site = Object.keys(info)[0];
+            result[site] = info[site];
+        });
+    
+        // 최저가 호텔 정보 계산
+        const cheaperHotel = this.getCheaperHotel(hotelInfos);
+    
+        // 최저가 호텔 정보를 결과 객체에 추가
+        result['cheaperHotel'] = cheaperHotel;
+    
+        return result;
+    }
+    
     public getCheaperHotel = (hotelInfos: { [site: string] : any }[]): { site: string, price: number | null } | null => {
         let minPrice: number | null = null;
         let cheaperHotel: { site: string, price: number | null } | null = null;
