@@ -2,12 +2,12 @@ import { chromium, Page } from 'playwright';
 
 export default class AgodaService {
     async hotelSearch(hotelData: any) {
-        const browser = await chromium.launch({ headless: true });
+        const browser = await chromium.launch({ headless: false });
         const page = await browser.newPage();        
 
         const hotelName = hotelData.hotelName;
-        const startdate = hotelData.startdate;
-        const enddate = hotelData.enddate;
+        const startdate = hotelData.start;
+        const enddate = hotelData.end;
         await page.goto('https://www.agoda.com/');
         console.log(1)
         await page.click('.IconBox__child')

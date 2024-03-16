@@ -2,12 +2,12 @@ import { chromium, Page } from 'playwright';
 
 export default class YeogiService {
     async hotelSearch(hotelData: any) {
-        const browser = await chromium.launch({ headless: true });
+        const browser = await chromium.launch({ headless: false });
         const page = await browser.newPage();        
 
-        const YearMonth = `${hotelData.startdate.slice(0, 4)}년 ${parseInt(hotelData.startdate.slice(5, 7))}월`;
-        const startDateDay = parseInt(hotelData.startdate.split('-')[2]);
-        const endDateDay = parseInt(hotelData.enddate.split('-')[2]);
+        const YearMonth = `${hotelData.start.slice(0, 4)}년 ${parseInt(hotelData.start.slice(5, 7))}월`;
+        const startDateDay = parseInt(hotelData.start.split('-')[2]);
+        const endDateDay = parseInt(hotelData.end.split('-')[2]);
         const hotelName = hotelData.hotelName;
         
         await page.goto('https://www.yeogi.com/');
