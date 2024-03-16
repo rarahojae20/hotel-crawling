@@ -24,18 +24,11 @@ export default class HotelRepository {
 
     
     public async getLatestHotelInfo(site: string, hotelName: string, start: string, end: string) {
-        console.log(site)
-        console.log(hotelName)
-
-        console.log(start)
-
-        console.log(end)
-
         const startDate = new Date(start);
         const endDate = new Date(end);
     
         try {
-                const latestHotelInfo = await HotelData.findOne({
+                const latestHotelInfo = await HotelData.findAll({
                 where: {
                     site: site,
                     hotelName: hotelName,
@@ -43,6 +36,8 @@ export default class HotelRepository {
                     endDate: endDate
                 },
                 order: [['searchTime', 'DESC']], // 최신 데이터를 가져오기 위해 검색 시간을 기준으로 내림차순으로 정렬
+                limit: 3 // 최대 3개의 결과만 가져옴
+
             });
 
 
