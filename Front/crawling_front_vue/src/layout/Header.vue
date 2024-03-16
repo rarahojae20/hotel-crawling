@@ -30,18 +30,9 @@
           <div class="nav">
             <i class="el-icon-close" @click="navFalse"></i>
             <ul>
-              <li @click="nav2True">Learn</li>
-              <li @click="goToRouter('/developer-portal')">Build</li>
-              <li @click="goToRouter('/news')">공지사항</li>
-            </ul>
-          </div>
-          <div class="nav2" v-if="nav2">
-            <i class="el-icon-close" @click="nav2False"></i>
-            <ul>
-              <li @click="goToRouter('/mainnet')">Mainnet</li>
-              <li @click="goToRouter('/polkadot')">POLKADOT</li>
-              <li @click="goToRouter('/polkadot-staking')">POLKADOT Staking</li>
-              <li @click="goToRouter('/reward')">Service Contribution Reward</li>
+              <li>숙소</li>
+              <li>공지사항</li>
+              <li>문의</li>
             </ul>
           </div>
         </div>
@@ -70,17 +61,6 @@ export default {
     },
     navFalse(){
       this.nav = false;
-    },
-    nav2True(){
-      this.nav2 = true;
-    },
-    nav2False(){
-      this.nav2 = false;
-    },
-    goToRouter(route) {
-      this.$router.push(route);
-      this.nav = false;
-      this.nav2 = false;
     },
     handleScroll() {
       this.isScrolled = window.scrollY > 0;

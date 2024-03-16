@@ -11,10 +11,10 @@
 </template>
 <script>
   import Header from "../layout/Header";
-
+  import Footer from "../layout/Section10.vue";
   export default {
     components: {
-      Header
+      Header,Footer
     },
     computed: {
 

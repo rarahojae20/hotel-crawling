@@ -314,6 +314,38 @@
       width: 100%;
       padding: 100px 30px 224px 50px !important;
       margin: 0;
+      .s2_container{
+        .text_box{
+          text-align: left!important;
+          width: 100%;
+          .p1{
+            z-index: 1;
+            font-size: 42px;
+            line-height: 1.1em;
+          }
+          .p2{
+            z-index: 1;
+            font-size: 16px;
+            line-height: 1.5em;
+            margin-top: 20px;
+          }
+          button{
+            display: flex;
+            align-items: center;
+            border-radius: 20px 2px;
+            border: 1px solid #000;
+            padding: 13px 29px;
+            margin-top: 40px;
+            width: max-content;
+            font-size: 14px;
+            line-height: 1.3em;
+            margin-right: 20px;
+            i{
+              margin-left: 20px;
+            }
+          }
+        }
+      }
       .s3_container{
         width: 100%;
         flex-direction: column;

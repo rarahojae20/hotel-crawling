@@ -2,6 +2,7 @@
   <div id="homeView">
     <Header/>
     <Section1/>
+
   </div>
 </template>
 
