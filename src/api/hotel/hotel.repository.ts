@@ -44,7 +44,9 @@ export default class HotelRepository {
                 },
                 order: [['searchTime', 'DESC']], // 최신 데이터를 가져오기 위해 검색 시간을 기준으로 내림차순으로 정렬
             });
-    
+
+
+    //
             return latestHotelInfo;
         } catch (error) {
             console.error('호텔 정보 가져오기 중 에러 발생:', error);
