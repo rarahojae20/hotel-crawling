@@ -2,28 +2,30 @@ import { chromium, Page } from 'playwright';
 
 export default class AgodaService {
     async hotelSearch(hotelData: any) {
-        const browser = await chromium.launch({ headless: false });
+        const browser = await chromium.launch({ headless: true });
         const page = await browser.newPage();        
 
         const hotelName = hotelData.hotelName;
         const startdate = hotelData.startdate;
         const enddate = hotelData.enddate;
         await page.goto('https://www.agoda.com/');
-        
+        console.log(1)
         await page.click('.IconBox__child')
         await page.type('.IconBox__child', hotelName);
-        
+        console.log(2)
         await page.waitForSelector('[data-selenium="suggestion-text"]');
         await page.click('[data-selenium="suggestion-text"]');
-        
+        console.log(3)
         await page.waitForSelector('[data-selenium="rangePickerCheckIn"]');
         await this.clickDateButton(page, startdate);
         await this.clickDateButton(page, enddate);
-
+        console.log(4)
         await page.waitForSelector('[data-selenium="occupancyPicker"]');
         await page.click('[data-selenium="searchButton"]');
-
+        console.log(5)
         const hotelInfo = await this.getHotelInfo(page);
+        console.log(6)
+
         return hotelInfo;
     }
 
@@ -55,10 +57,13 @@ export default class AgodaService {
 
     async getHotelInfo(page: Page) {
         try {
-            await page.waitForSelector('.PropertyCardItem', { timeout: 10000 }); // 대기 시간을 10초로 늘림
-    
+            await page.waitForSelector('.PropertyCardItem', { timeout: 300000 }); // 대기 시간을 10초로 늘림
+            console.log(6)
+
             const hotelName = await page.$eval('.PropertyCardItem [data-selenium="hotel-name"]', element => element.textContent.trim());
+            console.log(6.5)
             const price = await page.$eval('.PropertyCardItem [data-selenium="display-price"]', element => element.textContent.trim());
+            console.log(7)
             return { hotelName, price };
         } catch (error) {
             console.error("호텔 정보를 찾을 수 없습니다:", error);
