@@ -17,7 +17,6 @@ export default class HotelController {
         const end = this.formatDate(enddate)
 
         const hotelData = {hotelName, start, end}
-        const result: Record<string, any> = {}; // 객체로 변경
 
 
         try {
@@ -52,11 +51,11 @@ export default class HotelController {
             result[site] = response[site];
         });
         
-
         const cheaperHotel =  this.getCheaperHotel(result);
+
+
         const allResults = { ...result, cheaperHotel }; // cheaperHotel을 포함한 모든 검색 결과
     
-        console.log(allResults);
         return allResults;
     }
         
@@ -81,26 +80,24 @@ export default class HotelController {
     }
     
 
-    public getCheaperHotel = (hotelInfos: { [site: string]: any }): { site: string, price: number | null } | null => {
+    public getCheaperHotel = (hotelInfos: { [site: string]: any }): { cheaperSite: string, cheaperPrice: string | null } | null => {
         let minPrice: number | null = null;
-        let cheaperHotel: { site: string, price: number | null } | null = null;
+        let cheaperHotel: { cheaperSite: string, cheaperPrice: string | null } | null = null;
     
         // 모든 호텔 정보를 반복하여 최저가 호텔을 찾음
-        for (const site in hotelInfos) {
-            const price = hotelInfos[site] ? parseInt(hotelInfos[site].price.replace(',', '')) : null; // 가격 문자열을 숫자로 변환하여 비교
-            // console.log("비교시보이는 가격은 ")
-            // console.log(price)
-            // 최저가가 아직 설정되지 않았거나, 현재 호텔이 더 저렴한 경우
+        for (const cheaperSite in hotelInfos) {
+            const price = hotelInfos[cheaperSite] ? parseInt(hotelInfos[cheaperSite].price.replace(',', '')) : null; // 가격 문자열을 숫자로 변환하여 비교
             if (price !== null && (minPrice === null || price < minPrice)) {
                 minPrice = price; // 최저가 업데이트
-                cheaperHotel = { site, price }; // 최저가 호텔 업데이트
+                const cheaperPrice = minPrice.toLocaleString('ko-KR'); // 한국 원화 형식으로 가격 변환
+                cheaperHotel = { cheaperSite, cheaperPrice }; // 최저가 호텔 업데이트
             }
         }
     
         return cheaperHotel; // 최저가 호텔 반환
     }
-            
-    public formatDate(dateString: string): string {
+    
+        public formatDate(dateString: string): string {
         const date = new Date(dateString);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
