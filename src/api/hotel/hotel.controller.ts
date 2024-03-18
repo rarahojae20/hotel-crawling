@@ -1,3 +1,4 @@
+//hotel.controller.ts
 import httpStatus from 'http-status';
 import { Request, Response } from 'express';
 import { Result } from '../../common/result';
@@ -17,7 +18,6 @@ export default class HotelController {
 
         const hotelData = {hotelName, start, end}
         const result: Record<string, any> = {}; // 객체로 변경
-        console.log (hotelData);
 
 
         try {
@@ -43,21 +43,23 @@ export default class HotelController {
     
         const requests = hotelSites.map(async (site: string) => {
             const hotelPrice = await new HotelService().getPrice(hotelData, site);
-            return hotelPrice;
+            return { [site]: hotelPrice };
         });
         const responses = await Promise.all(requests);
     
-        hotelSites.forEach((site, index) => {
-            result[site] = responses[index];
+        responses.forEach((response) => {
+            const site = Object.keys(response)[0];
+            result[site] = response[site];
         });
-    
-        const cheaperHotel = this.getCheaperHotel([result]);
+        
+
+        const cheaperHotel =  this.getCheaperHotel(result);
         const allResults = { ...result, cheaperHotel }; // cheaperHotel을 포함한 모든 검색 결과
     
         console.log(allResults);
         return allResults;
     }
-    
+        
     private getLatestHotelPromise = async (hotelData: any, hotelSites: string[]) => {
         const hotelName = hotelData.hotelName;
         const start = hotelData.start; // 검색 시작 날짜
@@ -75,30 +77,29 @@ export default class HotelController {
             const site = Object.keys(info)[0];
             result[site] = info[site];
         });
-        console.log(result)
         return result;
     }
     
 
-    public getCheaperHotel = (hotelInfos: { [site: string]: any }[]): { site: string, price: number | null } | null => {
+    public getCheaperHotel = (hotelInfos: { [site: string]: any }): { site: string, price: number | null } | null => {
         let minPrice: number | null = null;
         let cheaperHotel: { site: string, price: number | null } | null = null;
     
         // 모든 호텔 정보를 반복하여 최저가 호텔을 찾음
-        hotelInfos.forEach((info) => {
-            const site = Object.keys(info)[0]; // 호텔 사이트 이름 가져오기
-            const price = info[site] ? parseInt(info[site].price.replace(',', '')) : null; // 가격 문자열을 숫자로 변환하여 비교
-    
+        for (const site in hotelInfos) {
+            const price = hotelInfos[site] ? parseInt(hotelInfos[site].price.replace(',', '')) : null; // 가격 문자열을 숫자로 변환하여 비교
+            // console.log("비교시보이는 가격은 ")
+            // console.log(price)
             // 최저가가 아직 설정되지 않았거나, 현재 호텔이 더 저렴한 경우
             if (price !== null && (minPrice === null || price < minPrice)) {
                 minPrice = price; // 최저가 업데이트
                 cheaperHotel = { site, price }; // 최저가 호텔 업데이트
             }
-        });
+        }
     
         return cheaperHotel; // 최저가 호텔 반환
     }
-    
+            
     public formatDate(dateString: string): string {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -108,3 +109,4 @@ export default class HotelController {
       }
       
 }
+
