@@ -25,10 +25,10 @@ export default class HotelController {
             const latestHotelPromise = this.getLatestHotelPromise(hotelData, hotelSites); // 최근 호텔 정보를 가져오는 Promise
             
             // 두 개의 Promise를 동시에 실행하여 결과를 기다림
-            const [prices, latestHotelInfo] = await Promise.all([pricePromise, latestHotelPromise]);
+            const [hotelSitesInfo, latestHotelInfo] = await Promise.all([pricePromise, latestHotelPromise]);
 
             // 응답으로 반환
-            res.status(httpStatus.OK).json({ prices, latestHotelInfo }); 
+            res.status(httpStatus.OK).json({hotelSitesInfo, latestHotelInfo }); 
             
         } catch (error) {
             console.error("에러 발생:", error);
