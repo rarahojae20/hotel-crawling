@@ -37,7 +37,8 @@ export default class YeogiService {
         await page.waitForSelector('.css-1qrcwa');
         
         const hotelInfo = await this.getHotelInfo(page);
-        return hotelInfo;
+        const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
+        return { hotelInfo, currentUrl };
     }
 
     async getHotelInfo(page: Page) {

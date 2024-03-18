@@ -26,7 +26,8 @@ export default class AgodaService {
         const hotelInfo = await this.getHotelInfo(page);
         console.log(6)
 
-        return hotelInfo;
+        const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
+        return { hotelInfo, currentUrl }; // 호텔 정보와 함께 URL 반환
     }
 
     async clickDateButton(page: Page, date: string) {
