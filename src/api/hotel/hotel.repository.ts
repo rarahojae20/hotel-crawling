@@ -18,7 +18,7 @@ export default class HotelRepository {
             searchTime: new Date(),
             price: price // 가격
         };
-
+        
         return await HotelData.create(hotelInfo);
     }
 
@@ -51,6 +51,7 @@ export default class HotelRepository {
     
     
 }
+
 
 
 

@@ -1,4 +1,4 @@
-import { chromium, Page } from 'playwright';
+//agoda.service.ts import { chromium, Page } from 'playwright';
 
 export default class AgodaService {
     async hotelSearch(hotelData: any) {
@@ -9,25 +9,22 @@ export default class AgodaService {
         const startdate = hotelData.start;
         const enddate = hotelData.end;
         await page.goto('https://www.agoda.com/');
-        console.log(1)
         await page.click('.IconBox__child')
         await page.type('.IconBox__child', hotelName);
-        console.log(2)
+
         await page.waitForSelector('[data-selenium="suggestion-text"]');
         await page.click('[data-selenium="suggestion-text"]');
-        console.log(3)
+        
         await page.waitForSelector('[data-selenium="rangePickerCheckIn"]');
         await this.clickDateButton(page, startdate);
         await this.clickDateButton(page, enddate);
-        console.log(4)
+
         await page.waitForSelector('[data-selenium="occupancyPicker"]');
         await page.click('[data-selenium="searchButton"]');
-        console.log(5)
-        const hotelInfo = await this.getHotelInfo(page);
-        console.log(6)
 
-        const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
-        return { hotelInfo, currentUrl }; // 호텔 정보와 함께 URL 반환
+        const hotelInfo = await this.getHotelInfo(page);
+
+        return  hotelInfo; // 호텔 정보와 함께 호텔 URL 반환
     }
 
     async clickDateButton(page: Page, date: string) {
@@ -59,13 +56,13 @@ export default class AgodaService {
     async getHotelInfo(page: Page) {
         try {
             await page.waitForSelector('.PropertyCardItem', { timeout: 300000 }); // 대기 시간을 10초로 늘림
-            console.log(6)
 
             const hotelName = await page.$eval('.PropertyCardItem [data-selenium="hotel-name"]', element => element.textContent.trim());
-            console.log(6.5)
             const price = await page.$eval('.PropertyCardItem [data-selenium="display-price"]', element => element.textContent.trim());
-            console.log(7)
-            return { hotelName, price };
+            const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
+            const hotelUrl = currentUrl; // 호텔 URL 생성
+    
+            return { hotelName, price,hotelUrl };
         } catch (error) {
             console.error("호텔 정보를 찾을 수 없습니다:", error);
             return { hotelName: "", price: "" };
@@ -74,3 +71,4 @@ export default class AgodaService {
     
         
     }
+

@@ -1,3 +1,4 @@
+//yeogi.service.ts
 import { chromium, Page } from 'playwright';
 
 export default class YeogiService {
@@ -12,41 +13,42 @@ export default class YeogiService {
         
         await page.goto('https://www.yeogi.com/');
         await page.waitForSelector('.css-8axmcj');
-        console.log(1)
+
 
         await page.click('.css-8axmcj');
         await page.type('.css-59ixa7', hotelName);
         await page.click('.css-ip3fk1');
-        console.log(2)
+
 
         await page.waitForSelector('.gc-calendar-month'); 
         await this.goToMonthAndSelectDate(page, YearMonth);
-        console.log(3)
+
 
         const startButton = await page.$(`.gc-calendar-month li button span:has-text("${startDateDay}")`);
         await startButton.click();
-        console.log(4)
+
 
         const endButton = await page.$(`.gc-calendar-month li button span:has-text("${endDateDay}")`);
         await endButton.click();
 
         await page.click('.css-1ixudeb');
         await page.click('.css-14l0i74 button.gc-box-button');
-        console.log(5)
+
 
         await page.waitForSelector('.css-1qrcwa');
         
         const hotelInfo = await this.getHotelInfo(page);
-        const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
-        return { hotelInfo, currentUrl };
+
+        return hotelInfo;
     }
 
     async getHotelInfo(page: Page) {
         const hotelName = await page.$eval('.gc-thumbnail-type-seller-card-title', element => element.textContent.trim());
-        console.log(6)
         const price = await page.$eval('.css-yeouz0 .css-5r5920', element => element.textContent.trim());
-        console.log(7)
-        return { hotelName, price };
+        const currentUrl = await page.url(); // 현재 페이지의 URL 가져오기
+        const hotelUrl = currentUrl;// 호텔 URL 생성
+
+        return { hotelName, price, hotelUrl};
 
     }
     
@@ -66,3 +68,7 @@ export default class YeogiService {
         }
     }
 }
+
+
+
+//
