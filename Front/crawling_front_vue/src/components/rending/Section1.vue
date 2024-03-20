@@ -8,6 +8,7 @@
     <div class="s1_container">
       <p class="p2">국내부터 해외까지</p>
       <p class="p2">숙박비굔 저기어때</p>
+      <h1></h1>
       <div class="input">
           <div class="table_list">
             <button>국내숙소</button>
@@ -23,7 +24,7 @@
             <el-form-item>
               <el-date-picker v-model="formData.endDate" type="date" placeholder="언제올래"></el-date-picker>
             </el-form-item>
-              <el-button type="primary" @click="search">Search</el-button>
+              <el-button type="primary" @click="searchFunc">Search</el-button>
           </el-form>
         </div>
     </div>
@@ -62,14 +63,20 @@
         </div>
       </div>
     </div>
+    <searchData-dialog :dialogData="dialogData" :visible="searchDataDialogVisible" @closeDialog="closeDialog"/>
   </section>
 </template>
 
 <script>
+  import searchDataDialog from "../../components/dialog/SearchDataDialog";
 
   export default {
     name: "Section1",
+    components:{searchDataDialog},
     data: () => ({
+      searchDataDialogVisible: false,
+      dialogData: null,
+      content:{},
       formData: {
         hotelName: '',
         startDate: '',
@@ -81,12 +88,20 @@
     computed: {
     },
     methods: {
+      searchFunc() {
+        this.search();
+        this.searchDataDialogVisible = true;
+      },
+      closeDialog() {
+        this.searchDataDialogVisible = false;
+      },
       unready(){
         this.$alert('준비중입니다.', '알림',{
           confirmButtonText: '확인'
         })
       },
       async search() {
+        const vm = this
         const {hotelName, startDate, endDate} = this.formData;
         const hotelSite = "yeogi,agoda"; // 호텔 사이트 정보
 
@@ -98,11 +113,11 @@
               });
 
           const data = await response.json();
-          console.log(data); // 백엔드에서 받은 데이터 출력
-          // 받은 데이터를 화면에 표시하거나 필요한 작업 수행
+          console.log(data);
+          vm.dialogData = data;
+          console.log('test',vm.dialogData.hotelSitesInfo.agoda.hotelName)
         } catch (error) {
           console.error('데이터 가져오기 실패:', error);
-          // 오류 처리
         }
       },
       handleScroll() {
@@ -113,16 +128,12 @@
 
         if (section3Position < windowHeight) {
           if (vm.videoSource !== require('../../../../../sitedata/video/home_s1_video2.mp4')) {
-            // 비디오 변경
             vm.videoSource = require('../../../../../sitedata/video/home_s1_video2.mp4');
-            // 이전 재생 위치로 설정
             vm.$refs.bgVideo.currentTime = vm.lastScrollPosition;
           }
         } else {
           if (vm.videoSource !== require('../../../../../sitedata/video/home_s1_video1.mp4')) {
-            // 비디오 변경
             vm.videoSource = require('../../../../../sitedata/video/home_s1_video1.mp4');
-            // 이전 재생 위치 저장
             vm.lastScrollPosition = vm.$refs.bgVideo.currentTime;
           }
         }

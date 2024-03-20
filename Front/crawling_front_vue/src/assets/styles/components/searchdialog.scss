@@ -1,0 +1,32 @@
+#search_dialog{
+ .el-dialog__body{
+   .el-tabs__content{
+     min-height: 300px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     //align-items: center;
+   }
+   #pane-first,#pane-second,#pane-third{
+        p{
+          font-size: 40px;
+        }
+     button:hover{
+       width: 100%;
+       margin-top: 30px;
+       background: #409EFF;
+       height: 50px;
+       border: 1px solid #409EFF;
+       border-radius: 10px;
+     }
+     button{
+       width: 100%;
+       margin-top: 30px;
+       background: #fff;
+       height: 50px;
+       border: 1px solid #000000;
+       border-radius: 10px;
+     }
+   }
+ }
+}
